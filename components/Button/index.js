@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Pressable, Text, StyleSheet, View } from 'react-native';
+import { TouchableHighlight, Text, StyleSheet, View } from 'react-native';
 
 const toggleMenu = () => {
   console.log('toggle menu');
@@ -7,21 +7,24 @@ const toggleMenu = () => {
 
 export default function Button({ ButtonText }) {
   return (
-    <Pressable style={styles.pressable} onPress={toggleMenu}>
+    <TouchableHighlight style={styles.pressable} onPress={toggleMenu}>
       <View style={styles.button}>
         <Text style={styles.buttonText}>{ButtonText}</Text>
       </View>
-    </Pressable>
+    </TouchableHighlight>
   );
 }
 
 const styles = StyleSheet.create({
   pressable: {
     marginTop: '45px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderRadius: '9px',
+    width: '70%',
   },
   button: {
-    margin: 'auto',
-    width: '70%',
+    width: '100%',
     height: '35px',
     borderRadius: '9px',
     backgroundImage: 'linear-gradient(90deg, rgba(19,182,228,1) 12%, rgba(123,49,187,1) 97%)',

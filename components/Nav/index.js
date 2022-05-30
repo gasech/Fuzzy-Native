@@ -15,25 +15,24 @@ export default function Nav() {
 
   return (
     <>
-      
       {/* SideBar */}
       <View style={menuShow ? styles.sideBarHidden : styles.sideBar}>
         <View style={styles.flex}>
           <View style={styles.leftBar}>
-            <Pressable onPress={toggleMenu}>
+            <Pressable style={styles.pressable} onPress={toggleMenu}>
               <Image
-                style={styles.menuIcon}
+                style={styles.closeIcon}
                 source={closeIcon}
               />
             </Pressable>
           </View>
-          <Pressable onPress={toggleMenu}>
+          <Pressable style={styles.pressable} onPress={toggleMenu}>
             <View style={styles.rightBar}>
             </View>
           </Pressable>
         </View>
       </View>
-      
+
       {/* Nav */}
       <View style={styles.nav}>
         <Pressable onPress={toggleMenu}>
@@ -41,8 +40,10 @@ export default function Nav() {
             style={styles.menuIcon} source={menuIcon}
           />
         </Pressable>
-        <Image style={styles.logo} source={icon} />
-        <Text style={styles.appTitle}>Fuzzy Native</Text>
+        <View style={styles.center}>
+          <Image style={styles.logo} source={icon} />
+          <Text style={styles.appTitle}>Fuzzy Native</Text>
+        </View>
       </View>
     </>
   );
@@ -65,8 +66,9 @@ const styles = StyleSheet.create({
     width: '10%',
   },
   menuIcon: {
-    marginTop: '15px',
-    marginLeft: '15px',
+    position: 'absolute',
+    top: '15px',
+    left: '15px',
     height: '25px',
     width: '25px',
   },
@@ -78,9 +80,14 @@ const styles = StyleSheet.create({
   },
   appTitle: {
     fontSize: '18px',
-    marginTop: '13px',
+    marginTop: '2px',
     marginLeft: '5px',
     color: 'white',
+  },
+  center: { 
+    margin: 'auto',
+    display: 'flex',
+    flexDirection: 'row',
   },
   sideBar: {
     display: 'block',
@@ -103,11 +110,21 @@ const styles = StyleSheet.create({
     width: '75%',
     backgroundColor: '#2C2C2E',
   },
+  closeIcon: {
+    marginTop: '15px',
+    marginLeft: '15px',
+    height: '25px',
+    width: '25px',
+  },
   rightBar: {
     position: 'fixed',
     left: '75%',
     height: '100%',
     width: '25%',
     backgroundColor: '#2C2C2E80',
+  },
+  pressable: {
+    width: '25px',
+    height: '25px',
   }
 });
