@@ -1,20 +1,21 @@
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import styled from 'styled-components/native'
 
-export default function Container({children}) {
+import {Text} from 'react-native';
+
+export default function Container({ children }) {
   return (
-    <View style={styles.container}>
+    <StyledContainer>
       {children}
-    </View>
+    </StyledContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    margin: '5%',
-    width: '90%',
-    height: '25%',
-    borderRadius: '5px',
-    backgroundColor: '#2C2C2E80'
-  }
-});
+const StyledContainer = styled.View`
+  font-weight: 400;
+  margin: 5%;
+  width: 90%;
+  height: 25%;
+  border-radius: 5px;
+  background-color: #2C2C2E80;
+`;

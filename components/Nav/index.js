@@ -3,14 +3,12 @@ import { Image, Text, StyleSheet, Pressable, View } from 'react-native';
 
 import menuIcon from '../../assets/menu-icon.png';
 import closeIcon from '../../assets/close-icon.png';
-import icon from '../../assets/favicon.png';
 
 export default function Nav() {
   const [menuShow, setMenuShow] = useState(true);
 
   const toggleMenu = () => {
     menuShow ? setMenuShow(false) : setMenuShow(true);
-    console.log(menuShow);
   }
 
   return (
@@ -25,6 +23,11 @@ export default function Nav() {
                 source={closeIcon}
               />
             </Pressable>
+            <View style={styles.sideBarButtons}>
+              <Text style={styles.sideBarButton}>Home</Text>
+              <Text style={styles.sideBarButton}>About</Text>
+              <Text style={styles.sideBarButton}>Logout</Text>
+            </View>
           </View>
           <Pressable style={styles.pressable} onPress={toggleMenu}>
             <View style={styles.rightBar}>
@@ -40,17 +43,13 @@ export default function Nav() {
             style={styles.menuIcon} source={menuIcon}
           />
         </Pressable>
-        <View style={styles.center}>
-          <Image style={styles.logo} source={icon} />
-          <Text style={styles.appTitle}>Fuzzy Native</Text>
-        </View>
       </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  nav: {
+  nav: { 
     display: 'flex',
     flexDirection: 'row',
     position: 'relative',
@@ -71,23 +70,6 @@ const styles = StyleSheet.create({
     left: '15px',
     height: '25px',
     width: '25px',
-  },
-  logo: {
-    marginTop: '6px',
-    marginLeft: '23%',
-    height: '40px',
-    width: '40px',
-  },
-  appTitle: {
-    fontSize: '18px',
-    marginTop: '2px',
-    marginLeft: '5px',
-    color: 'white',
-  },
-  center: { 
-    margin: 'auto',
-    display: 'flex',
-    flexDirection: 'row',
   },
   sideBar: {
     display: 'block',
@@ -110,11 +92,21 @@ const styles = StyleSheet.create({
     width: '75%',
     backgroundColor: '#2C2C2E',
   },
+  sideBarButtons: {
+    marginTop: '30px',
+    marginLeft: '30px',
+  },
+  sideBarButton: {
+    marginTop: '40px',
+    color: 'white',
+    fontSize: 20,
+    fontWeight: '200',
+  },
   closeIcon: {
-    marginTop: '15px',
-    marginLeft: '15px',
-    height: '25px',
-    width: '25px',
+    marginTop: '17px',
+    marginLeft: '17px',
+    height: '20px',
+    width: '20px',
   },
   rightBar: {
     position: 'fixed',
