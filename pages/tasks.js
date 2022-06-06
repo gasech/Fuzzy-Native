@@ -10,12 +10,7 @@ import Task from '../components/Task';
 export default function TasksScreen() {
   const [task, setTask] = useState('')
 
-  const [tasks, setTasks] = useState([
-    {
-      task_name: "ASDSADSADAS",
-      key: 0,
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
 
   const createTask = (task_name) => {
     console.log("Task created! " + task_name);
