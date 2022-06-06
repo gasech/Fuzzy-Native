@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Image, Text, StyleSheet, Pressable, View } from 'react-native';
+import { Image, View, Text, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
 
 import menuIcon from '../../assets/menu-icon.png';
 import closeIcon from '../../assets/close-icon.png';
 
-export default function Nav() {
+export default function Nav({ state, descriptors, navigation }) {
   const [menuShow, setMenuShow] = useState(true);
 
   const toggleMenu = () => {
@@ -12,8 +12,12 @@ export default function Nav() {
   }
 
   return (
-    <>
-      {/* SideBar */}
+    <View style={styles.nav}>
+      <Pressable onPress={toggleMenu}>
+        <Image
+          style={styles.menuIcon} source={menuIcon}
+        />
+      </Pressable>
       <View style={menuShow ? styles.sideBarHidden : styles.sideBar}>
         <View style={styles.flex}>
           <View style={styles.leftBar}>
@@ -24,9 +28,52 @@ export default function Nav() {
               />
             </Pressable>
             <View style={styles.sideBarButtons}>
-              <Text style={styles.sideBarButton}>Home</Text>
-              <Text style={styles.sideBarButton}>About</Text>
-              <Text style={styles.sideBarButton}>Logout</Text>
+              {state.routes.map((route, index) => {
+                const { options } = descriptors[route.key];
+                const label =
+                  options.tabBarLabel !== undefined
+                    ? options.tabBarLabel
+                    : options.title !== undefined
+                      ? options.title
+                      : route.name;
+
+                const isFocused = state.index === index;
+
+                const onPress = () => {
+                  const event = navigation.emit({
+                    type: 'tabPress',
+                    target: route.key,
+                  });
+
+                  if (!isFocused && !event.defaultPrevented) {
+                    navigation.navigate(route.name);
+                  }
+                };
+
+                const onLongPress = () => {
+                  navigation.emit({
+                    type: 'tabLongPress',
+                    target: route.key,
+                  });
+                };
+
+                return (
+                  <TouchableOpacity
+                    key={route.key}
+                    accessibilityRole="button"
+                    accessibilityState={isFocused ? { selected: true } : {}}
+                    accessibilityLabel={options.tabBarAccessibilityLabel}
+                    testID={options.tabBarTestID}
+                    onPress={onPress}
+                    onLongPress={onLongPress}
+                    style={{ flex: 1 }}
+                  >
+                    <Text style={[{color: isFocused ? '#27bfe6' : 'white'}, styles.sideBarButton]}>
+                      {label}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
             </View>
           </View>
           <Pressable style={styles.pressable} onPress={toggleMenu}>
@@ -35,21 +82,12 @@ export default function Nav() {
           </Pressable>
         </View>
       </View>
-
-      {/* Nav */}
-      <View style={styles.nav}>
-        <Pressable onPress={toggleMenu}>
-          <Image
-            style={styles.menuIcon} source={menuIcon}
-          />
-        </Pressable>
-      </View>
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  nav: { 
+  nav: {
     display: 'flex',
     flexDirection: 'row',
     position: 'relative',
@@ -98,7 +136,6 @@ const styles = StyleSheet.create({
   },
   sideBarButton: {
     marginTop: '40px',
-    color: 'white',
     fontSize: 20,
     fontWeight: '200',
   },

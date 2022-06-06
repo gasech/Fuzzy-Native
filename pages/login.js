@@ -1,20 +1,30 @@
+import React from 'react';
+
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
-
 import Logo from '../components/Logo';
+import ColoredText from '../components/ColoredText';
 
-export default function LoginScreen() {
+export default function LoginScreen({navigation}) {
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  
   return (
     <View style={styles.mainPage}>
       <StatusBar style="auto" />
       <Logo/>
-      <Text style={styles.mainTitle}>Login</Text>
-      <TextInput PlaceHolder={"Username"}/>
-      <TextInput PlaceHolder={"Password"}/>
-      <Button ButtonText={"Log In"} onPress={() => navigation.navigate('Login')}/>
+      <Text style={styles.mainTitle}>Log In</Text>
+      
+      <TextInput placeholder={"Username"} value={username} onChange={setUsername}/>
+      <TextInput placeholder={"Password"} value={password} onChange={setPassword} secureTextEntry={true}/>
+      <Button ButtonText={"Log In"} onPress={() => navigation.navigate('Tasks')}/>
+      
+      <Text style={styles.text}>Don't have an account? 
+        <ColoredText color="red"> Sign Up</ColoredText>
+      </Text>
     </View>
   );
 }
@@ -27,21 +37,13 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     color: 'white',
-    fontSize: 26,
-    textAlign: 'left',
-    marginLeft: '5%',
-    marginTop: '5%',
+    fontSize: 18,
+    textAlign: 'center',
+    marginTop: '50px',
   },
-  mainParagraph: {
+  text: {
+    marginTop: '25px',
+    textAlign: 'center',
     color: 'white',
-    fontSize: 16,
-    textAlign: 'left',
-    marginLeft: '5%',
-    marginRight: '5%',
-    marginTop: '5%',
-  },
-  mainImage: {
-    height: '250px',
-    width: '100%'
-  },
+  }
 });

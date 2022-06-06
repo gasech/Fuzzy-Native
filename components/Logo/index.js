@@ -13,7 +13,7 @@ export default function Logo() {
 }
 
 const StyledCenter = styled.View`
-  margin-top: 70px;
+  margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
   display: flex;
